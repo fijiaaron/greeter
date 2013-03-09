@@ -12,5 +12,10 @@
     "url": "https://github.com/fijiaaron/greeter.git"
   },
   "author": "Aaron Evans",
-  "license": "BSD"
+  "license": "BSD",
+  "dependencies": {
+    "nodemon": "~0.7.2",
+    "express": "~3.1.0",
+    "string": "~1.2.1"
+  }
 }
