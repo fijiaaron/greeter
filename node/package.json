@@ -16,6 +16,9 @@
   "dependencies": {
     "nodemon": "~0.7.2",
     "express": "~3.1.0",
-    "string": "~1.2.1"
+    "string": "~1.2.1",
+    "cookies": "~0.3.6",
+    "mustache": "~0.7.2",
+    "locale": "0.0.8"
   }
 }

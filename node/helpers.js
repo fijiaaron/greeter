@@ -5,7 +5,16 @@ var capitalize = function capitalize(string) {
 }
 
 
+var heredoc = function hereDoc(f) {
+  return f.toString().
+      replace(/^[^\/]+\/\*!?/, '').
+      replace(/\*\/[^\/]+$/, '');
+}
+
+
+
 module.exports = {
-	capitalize: capitalize
+	capitalize: capitalize,
+	heredoc: heredoc
 }
 
