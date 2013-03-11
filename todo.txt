@@ -1,0 +1,10 @@
++ use server- node.js 
++ use web framework - express
++ use template framework - swig
++ index	"What is your name"
++ hello with query string param for name
++ tie index with hello (form)
+
+strip header/footer
+greeter object
+
