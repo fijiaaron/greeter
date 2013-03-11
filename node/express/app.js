@@ -17,8 +17,7 @@ var app = express();
 
 app.configure(function(){
   app.set('port', process.env.PORT || 3000);
-  // app.set('view engine', 'jade');
-  // app.set('view engine', 'mustache');
+
   app.use(express.favicon());
   app.use(express.logger('dev'));
   app.use(express.bodyParser());
@@ -32,7 +31,7 @@ app.configure(function(){
   app.engine('html', consolidate.swig);
 
   swig.init({ root: 'views', cache: false, allowErrors: true });
-  
+
   app.use(express.errorHandler()); 
 });
 
@@ -41,7 +40,6 @@ app.configure('development', function(){
 });
 
 app.get('/', routes.index);
-app.get('/users', user.list);
 app.get('/hello', routes.hello);
 
 http.createServer(app).listen(app.get('port'), function(){
