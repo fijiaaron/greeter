@@ -23,5 +23,10 @@ describe("Person", function() {
 			var person = new Person(name);
 			person.should.have.property("name").equal(name);
 		});	
+
+		it("should not have a name if none given", function() {
+			var person = new Person();
+			person.should.not.have.property("name");
+		});	
 	});	
 });
