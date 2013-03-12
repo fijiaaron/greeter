@@ -11,6 +11,22 @@ h2 { font-size: 36pt; }
 h3 { font-size: 24pt; }
 
 input { font-size: 24pt;}
+select { font-size: 24pt;}
+button { font-size: 24pt;}
+
+input[type="submit"] { 
+	font-size: 24pt; 
+	background: #789;
+	color: white;
+	border:2px solid black;
+	-webkit-border-radius: 6px;
+}
+input[type="submit"]:hover { 
+	font-size: 24pt; 
+	color: white;
+	background: #345;
+}
+
 
 a {
   color: #00B7FF;
@@ -22,6 +38,10 @@ a {
 	background: #345;
 	color: white;
 	text-align: right;
+}
+
+#header a {
+	color: inherit;
 }
 
 #content {

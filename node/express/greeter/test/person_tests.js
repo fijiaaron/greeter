@@ -3,10 +3,11 @@ var chai = require('chai');
 chai.should();
 
 
-describe("Person", function() {
+describe("[Person]", function() {
 	var Person = require('../lib/person');
 
 	it("should exist", function() {
+		Person.should.exist;
 		Person.should.be.a('function');
 		Person.prototype.type.should.equal('person');
 	});
@@ -29,4 +30,18 @@ describe("Person", function() {
 			person.should.not.have.property("name");
 		});	
 	});	
+
+	describe("getLanguage()", function() {
+		it("should report a person's language based on their locale", function() {
+			var person = new Person();
+
+			var request = {	headers: [] };
+			request.headers['Accept-Language'] = 'en-AU; en; q=0.8; en-US; q=0.5';
+
+			var request_helper = require('../lib/request_helper');
+			var locale = request_helper.getLocale(request);
+
+			locale.should.equal("en-AU");
+		});
+	});
 });
