@@ -1,6 +1,7 @@
 var Person = require('./Person');
 var request_helper = require('./request_helper');
 
+
 var Greeter = {
 	type: 'greeter',
 
@@ -55,7 +56,7 @@ var Greeter = {
 		var _modifier = setOrDefault(modifier, Greeter.default_modifier);
 		var _punctuation = setOrDefault(punctuation, Greeter.default_punctuation);
 		
-		var message = _greeting + ", " + _modifier + _name + _punctuation;
+		var message = _greeting + _modifier + _name + _punctuation;
 		return message;
 	},
 
@@ -89,7 +90,7 @@ var Greeter = {
 		if (! Greeter.locales[locale]) {
 			locale = Greeter.default_locale;
 		}
-		
+
 		var greeting = this.locales[locale].greeting;
 		return greeting;
 	}

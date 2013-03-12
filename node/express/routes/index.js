@@ -7,27 +7,26 @@ var util = require('util');
 var greeter = require('../greeter');
 var request_helper = require('../greeter/lib/request_helper');
 
+var last_request;
+
 exports.index = function(request, response){
   response.render('index', { title: 'Greeter' });
 };
 
 exports.hello = function(request, response) {
+	var name = request_helper.getName(request);
+	console.log("got name from request: " + name);
 
-	var headers = request.headers;
-	var accept_language = request.headers['accept-language']; 
-
-
-	// var locales = accept_language.split(';');
-	// var locale = locales[0].substring(0,5);
 	var locale = request_helper.getLocale(request);
-	console.log("locale: " + locale);
+	console.log("got locale from request:" + util.inspect(locale));
 
+	var isSame = request_helper.isSameAsLastRequest(request, last_request);
+	console.log("is this the same as the last request:" + isSame);
 
-	var name = request.query.name;
-	console.log("name: " + name);
-
-	var message = greeter.greet(name, locale);
+	var message = greeter.getMessage(name, locale, isSame);
 	console.log("message: " + message);
+
+	var last_request = request;
 
 	response.render('hello', {name: name, greeting: message});
 }

@@ -5,6 +5,14 @@
 + hello with query string param for name
 + tie index with hello (form)
 
-strip header/footer
-greeter object
++strip header/footer
++greeter object
++person object
++ request helper
++languages
 
++mocha
++chai
++makefile
+
+refactor to use request helper and person
