@@ -43,7 +43,7 @@ describe("localizer", function() {
 		locales.forEach(function(locale) {
 			it("should return the dictionary for the locale", function() {
 				var dictionary = localizer.getDictionary(locale);
-				console.log(util.inspect(dictionary));
+				console.log('\n' + util.inspect(dictionary));
 
 				dictionary.should.have.property('greeting').not.to.be.null;
 				dictionary.should.have.property('farewell');
@@ -57,7 +57,15 @@ describe("localizer", function() {
 	describe("isLocaleSupported", function() {
 		locales.forEach(function(locale) {
 			it("should return true for '" + locale + "'locale", function() {
-				localizer.isLocaleSupported(locale);
+				var supported = localizer.isLocaleSupported(locale);
+				supported.should.be.true;
+			})
+		})
+
+		it("should return false for unsupported locale", function() {
+			var supported =  localizer.isLocaleSupported("unsupported");
+			supported.should.be.false;
+
 		})
 	})
 })
