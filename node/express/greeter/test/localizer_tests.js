@@ -53,4 +53,11 @@ describe("localizer", function() {
 			})	
 		})
 	})
+
+	describe("isLocaleSupported", function() {
+		locales.forEach(function(locale) {
+			it("should return true for '" + locale + "'locale", function() {
+				localizer.isLocaleSupported(locale);
+		})
+	})
 })
