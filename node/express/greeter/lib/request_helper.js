@@ -61,7 +61,7 @@ function getLocale(request) {
 }
 
 
-function getClient(request) {
+function getClientAddress(request) {
 	var client =  request.connection.remoteAddress;
 	return client;
 }
@@ -73,7 +73,7 @@ function isSameClient(request1, request2) {
 		return false;
 	}
 
-	return (getClient(request1) == getClient(request2))	&& 
+	return (getClientAddress(request1) == getClientAddress(request2)) && 
 	       (getName(request1) == getName(request2));
 }
 
@@ -81,7 +81,7 @@ function isSameClient(request1, request2) {
 var request_helper = {
 	getName: getName,
 	getLocale: getLocale,
-	getClient: getClient,
+	getClientAddress: getClientAddress,
 	isSameClient: isSameClient
 }
 

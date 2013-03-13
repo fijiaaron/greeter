@@ -43,7 +43,8 @@ app.get('/', routes.index);
 app.get('/hello', routes.hello);
 // app.get('/cookies', routes.cookies);
 
-http.createServer(app).listen(app.get('port'), function(){
+var server = http.createServer(app);
+
+server.listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
-  
 });
