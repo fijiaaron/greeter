@@ -1,6 +1,7 @@
 var dictionaries = {
 	"en-US" : {
 		greeting: "Hello",
+		good_morning: "Good morning",
 		farewell: "Goodbye",
 		group: "world",
 		individual: "individual",
@@ -8,6 +9,7 @@ var dictionaries = {
 	},
 	"en-AU": {
 		greeting: "G'day" ,
+		good_morning: "Good morning",
 		farewell: "Cheerio",
 		group: "world",
 		individual: "mate",
@@ -15,6 +17,7 @@ var dictionaries = {
 	},
 	"es": {
 		greeting: "Hola",
+		good_morning: "Buenas dias",
 		farewell: "Adiós",
 		group: "a todo el mundo",
 		individual: "amigo",

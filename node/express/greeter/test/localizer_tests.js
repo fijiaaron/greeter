@@ -46,6 +46,7 @@ describe("localizer", function() {
 				console.log('\n' + util.inspect(dictionary));
 
 				dictionary.should.have.property('greeting').not.to.be.null;
+				dictionary.should.have.property('good_morning').not.to.be.null;
 				dictionary.should.have.property('farewell');
 				dictionary.should.have.property('group');
 				dictionary.should.have.property('individual');

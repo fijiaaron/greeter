@@ -21,17 +21,18 @@ function getMessage(name, locale, isSameAsLastRequest) {
 	
 	if (isSameAsLastRequest) {
 		salutation = dictionary.farewell;
+	}
+	if (isMorning()) {
+		salutation = dictionary.good_morning;
 	} 
 
-	console.log('typeof name: ' + typeof(name));
 	if (! isSet(name)) {
 		subject = dictionary.group;
 	} 
-	else if (name == null) {
-		subject = dictionary.group;
-	}
 	else if (name == '') {
 		subject = dictionary.individual;
+	} else {
+		subject = capitalize(name);
 	}
 
 	if (salutation == dictionary.farewell && subject == dictionary.group) {
@@ -61,6 +62,20 @@ function isSet(arg) {
 	return arg !== undefined || arg != null;
 }
 
+
+function isMorning() {
+	var time = new Date();
+
+	if (time.getHours() < 12) {
+		return true;
+	}
+
+	return false;
+}
+
+var capitalize = function capitalize(string) {
+   return string.replace( /(^|\s)([a-z])/g , function(m,p1,p2){ return p1+p2.toUpperCase(); } );
+}
 
 var greeter = {
 	getMessage : getMessage
