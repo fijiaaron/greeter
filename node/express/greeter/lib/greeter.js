@@ -7,6 +7,7 @@ var localizer = require('./localizer');
 function getMessage(name, locale, isSameAsLastRequest) {
 	var message;
 	var modifier = "";
+	var subject = name;
 	var punctuation = "!";
 	var punctuation_inverted = "¡";
 
@@ -22,15 +23,18 @@ function getMessage(name, locale, isSameAsLastRequest) {
 		salutation = dictionary.farewell;
 	} 
 
-	if (name === undefined) {
-		name = dictionary.group;
+	console.log('typeof name: ' + typeof(name));
+	if (! isSet(name)) {
+		subject = dictionary.group;
+	} 
+	else if (name == null) {
+		subject = dictionary.group;
+	}
+	else if (name == '') {
+		subject = dictionary.individual;
 	}
 
-	if (name == "") {
-		name = dictionary.individual;
-	}
-
-	if (salutation == dictionary.farewell && name == dictionary.group) {
+	if (salutation == dictionary.farewell && subject == dictionary.group) {
 		modifier = dictionary.modifier;
 	}
 
@@ -42,14 +46,19 @@ function getMessage(name, locale, isSameAsLastRequest) {
 		}
 	}
 
-	message = salutation + ", " + modifier + name + punctuation;
+	message = salutation + ", " + modifier + subject + punctuation;
 	
 	if (locale == "es") {
-		message = punctuation_inverted + salutation + " " + name + modifier + punctuation;
+		message = punctuation_inverted + salutation + " " + subject + modifier + punctuation;
 	}
 
 
 	return message;
+}
+
+
+function isSet(arg) {
+	return arg !== undefined || arg != null;
 }
 
 

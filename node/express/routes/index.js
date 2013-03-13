@@ -23,6 +23,9 @@ exports.hello = function(request, response) {
 	var message = greeter.getMessage(name, locale, isSame);
 	console.log("message: " + message);
 
+
+	console.log('request.connection.remoteAddress: ' + util.inspect(request.connection.remoteAddress));
+
 	var last_request = request;
 
 	response.render('hello', {name: name, greeting: message});

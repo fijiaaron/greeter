@@ -18,8 +18,25 @@ describe("Greeter", function() {
 			message.should.equal("Hello, world!");
 		});
 
+		it("should return 'Hello, world!' if all parameters are not set", function () {
+			var name;
+			var locale ='en-US';
+			var isSame = false;
+			var message = greeter.getMessage(name, locale, isSame);
+			message.should.equal("Hello, world!");
+		});
+
+		it("should return 'Hello, world!' if all parameters are null", function () {
+			var name = null;
+			var locale = null;
+			var isSame = null;
+			var message = greeter.getMessage(name, locale, isSame);
+			message.should.equal("Hello, world!");
+		});
+
 		it("should return 'Hello, individual!' if name is an empty string", function () {
-			var message = greeter.getMessage("");
+			var name = "";
+			var message = greeter.getMessage(name);
 			message.should.equal("Hello, individual!");
 		});
 
