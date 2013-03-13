@@ -25,7 +25,7 @@ describe("localizer", function() {
 			it("should have dictionary for the '" + locale + " 'locale: " , function() {
 				localizer.dictionaries[locale].should.exist;
 
-				describe("locale " + locale, function() {
+				describe("locale '" + locale + "'", function() {
 					var words = ['greeting', 'farewell', 'group', 'individual', 'modifier'];
 					words.forEach(function(word) {
 
@@ -65,7 +65,6 @@ describe("localizer", function() {
 		it("should return false for unsupported locale", function() {
 			var supported =  localizer.isLocaleSupported("unsupported");
 			supported.should.be.false;
-
 		})
 	})
 })

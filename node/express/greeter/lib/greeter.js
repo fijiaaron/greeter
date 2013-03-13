@@ -2,7 +2,7 @@
 
 var default_locale = "en-US";
 
-var dictionaries = require('./dictionaries');
+var localizer = require('./localizer');
 
 function getMessage(name, locale, isSameAsLastRequest) {
 	var message;
@@ -10,11 +10,11 @@ function getMessage(name, locale, isSameAsLastRequest) {
 	var punctuation = "!";
 	var punctuation_inverted = "¡";
 
-	if (! dictionaries.isLocaleSupported(locale)) {
+	if (! localizer.isLocaleSupported(locale)) {
 		locale = default_locale;
 	}
 
-	var dictionary = dictionaries.getDictionary(locale);
+	var dictionary = localizer.getDictionary(locale);
 
 	var salutation = dictionary.greeting;
 	
@@ -54,8 +54,6 @@ function getMessage(name, locale, isSameAsLastRequest) {
 
 
 var greeter = {
-	isLocaleSupported : isLocaleSupported,
-	getDictionary : getDictionary,
 	getMessage : getMessage
 }
 
