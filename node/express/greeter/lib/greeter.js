@@ -1,110 +1,64 @@
-var Person = require('./Person');
-var request_helper = require('./request_helper');
+// greeter.js
 
+var default_locale = "en-US";
 
-var Greeter = {
-	type: 'greeter',
+var dictionaries = require('./dictionaries');
 
-	default_greeting: "Hello",
-	default_name: "World",
-	default_modifier: "",
-	default_punctuation: "!",
-	default_locale: "en-US",
+function getMessage(name, locale, isSameAsLastRequest) {
+	var message;
+	var modifier = "";
+	var punctuation = "!";
+	var punctuation_inverted = "¡";
 
-	locales: {
-		"en-US" : {
-			greeting: "Hello",
-			farewell: "Goodbye",
-			group: "World",
-			individual: "Individual",
-			modifier: "cruel"
-		},
-		"en-AU": {
-			greeting: "G'Day" ,
-			farewell: "Cheerio",
-			group: "Planet",
-			individual: "mate",
-			modifier: "bloody",
-		},
-		"es": {
-			greeting: "Hola",
-			farewell: "Adios",
-			group: "todo mundo",
-			individual: "amigo",
-			modifier: "malo"
-		}
-	},
+	if (! dictionaries.isLocaleSupported(locale)) {
+		locale = default_locale;
+	}
 
-	greet: function greet(person, locale) {
-		var _greeting;
-		var _modifier;
-		var _name;
-		var _punctuation;
+	var dictionary = dictionaries.getDictionary(locale);
 
-		// var _person = setOrDefault(person, new Person());
-		var _locale = setOrDefault(locale, Greeter.default_locale);
-		if (! Greeter.locales[locale])
-		_name = this.getName(person, _locale);
-		_greeting = this.getGreeting(_locale);
+	var salutation = dictionary.greeting;
+	
+	if (isSameAsLastRequest) {
+		salutation = dictionary.farewell;
+	} 
 
-		return this.getMessage(_name, _greeting, _modifier);
-	},
+	if (name === undefined) {
+		name = dictionary.group;
+	}
 
-	getMessage: function getMessage(name, greeting, modifier, punctuation) {
-		var _name = setOrDefault(name, Greeter.default_name)
-		var _greeting = setOrDefault(greeting, Greeter.default_greeting);
-		var _modifier = setOrDefault(modifier, Greeter.default_modifier);
-		var _punctuation = setOrDefault(punctuation, Greeter.default_punctuation);
-		
-		var message = _greeting + _modifier + _name + _punctuation;
-		return message;
-	},
+	if (name == "") {
+		name = dictionary.individual;
+	}
 
-	getName: function getName(person, locale) {
-		var name; 
-		
-		var locale = setOrDefault(locale, Greeter.default_locale);
-		if (! Greeter.locales[locale]) {
-			locale = Greeter.default_locale;
-		}
-		console.log("locale-->: " + locale)
+	if (salutation == dictionary.farewell && name == dictionary.group) {
+		modifier = dictionary.modifier;
+	}
 
-		if (person) {
-			if (typeof(person) == 'string') {
-				name = person;
-			} 
-			else if (person.name) {
-				name = person.name;
-			} else {
-				name = Greeter.locales[locale].individual;				
-			}
+	if (modifier != "") {
+		if (locale == "es") {
+			modifier = " " + modifier;
 		} else {
-			name = Greeter.locales[locale].group;
+			modifier = modifier + " ";
 		}
-
-		return name;
-	},
-
-	getGreeting: function getGreeting(locale) {
-		console.log("locale-->: " + locale)
-		if (! Greeter.locales[locale]) {
-			locale = Greeter.default_locale;
-		}
-
-		var greeting = this.locales[locale].greeting;
-		return greeting;
-	}
-};
-
-
-function setOrDefault(variable, alternate) {
-	if (variable) {
-		return variable;
 	}
 
-	return alternate;
+	message = salutation + ", " + modifier + name + punctuation;
+	
+	if (locale == "es") {
+		message = punctuation_inverted + salutation + " " + name + modifier + punctuation;
+	}
+
+
+	return message;
+}
+
+
+var greeter = {
+	isLocaleSupported : isLocaleSupported,
+	getDictionary : getDictionary,
+	getMessage : getMessage
 }
 
 exports = module.exports = (function() {
-	return Greeter;
+	return greeter;
 }());

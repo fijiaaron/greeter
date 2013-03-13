@@ -1,14 +1,19 @@
 // request_helper.js
 
-// var util = require('util');
+var util = require('util');
 var S = require('string');
+var dictionaries = require('./dictionaries');
 
 function getName(request) {
 	var name;
 	var locale = getLocale(request);
+	
+	var dictionary = greeter.getDictionary(locale);
+	console.log("dictionary: " + util.inspect(dictionary));
 
 	if (! request || request.query) {
-		name = greeter.locales[locale].group;
+
+		name = dictionary.group;
 	}
 
 	if (! request.query) {
@@ -40,6 +45,7 @@ function getLocale(request) {
 	}
 
 	// this is a hack that just gets what I want for the demo
+	// it doesn't rank or properly format
 	if ( S(accept_language).contains(',') ) {
 		var locales = accept_language.split(',');
 	

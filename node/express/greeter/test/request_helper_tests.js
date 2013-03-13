@@ -23,7 +23,7 @@ describe("[Request Helper]", function() {
 
 			locale.should.equal("en-AU");
 		});
-
+		
 		it("should return the user's locale en-US", function() {
 			var request = {	headers: [] };
 			request.headers['accept-language'] = 'en-US';
@@ -32,7 +32,6 @@ describe("[Request Helper]", function() {
 
 			locale.should.equal("en-US");
 		});
-
 	});
 
 	describe("getName()", function() {

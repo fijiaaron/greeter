@@ -5,12 +5,12 @@
 
 var express = require('express')
   , routes = require('./routes')
-  , user = require('./routes/user')
   , http = require('http')
   , path = require('path')
   , express = require('express')
   , consolidate = require('consolidate')
-  , swig = require('swig'); 
+  , swig = require('swig')
+  , Cookies = require('cookies'); 
 
 
 var app = express();
@@ -41,7 +41,9 @@ app.configure('development', function(){
 
 app.get('/', routes.index);
 app.get('/hello', routes.hello);
+// app.get('/cookies', routes.cookies);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
+  
 });

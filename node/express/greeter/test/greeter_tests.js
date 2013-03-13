@@ -1,91 +1,141 @@
+// greeter2_tests.js
+var inspect = require('util').inspect;
 var assert = require('assert');
 var chai = require('chai');
 chai.should();
 
-describe("[Greeter]", function() {
-
+describe("Greeter", function() {
 	var greeter = require('../lib/greeter');
-	var Person = require('../lib/person');
-	var request_helper = require('../lib/request_helper');
-
+		
 	it("should exist", function() {
 		greeter.should.exist;
 		greeter.should.be.an('object');
-		greeter.should.have.property('type').equal('greeter');
 	});
 
-	describe("getMessage()", function() {
-		it("should return 'Hello, World!', if no name is given", function() {
+	describe("getMessage()", function () {
+		it("should return 'Hello, world!' if no parameters are given", function () {
 			var message = greeter.getMessage();
-			message.should.equal("Hello, World!");
+			message.should.equal("Hello, world!");
 		});
 
-		it("should return 'Hello, Name!', if a name is given", function() {
-			var name = "Aaron";
+		it("should return 'Hello, individual!' if name is an empty string", function () {
+			var message = greeter.getMessage("");
+			message.should.equal("Hello, individual!");
+		});
+
+		it("should return 'Hello, Name!' if a name is give", function () {
+			var name = "Name"; 
 			var message = greeter.getMessage(name);
 			message.should.equal("Hello, " + name + "!");
 		});
-	});
 
-	describe("greet()", function() {
-		it("should return 'Hello, World!', if no person is sent", function() {
-			var message = greeter.greet();
-			message.should.equal("Hello, World!");
+		it("should return 'Goodbye, Name!' if request is same as last", function () {
+			var name = "Name"; 
+			var locale = "en-US";
+			var isSame = true;
+			var message = greeter.getMessage(name, locale, isSame);
+			message.should.equal("Goodbye, " + name + "!");
 		});
 
-		it("should return 'Hello, Name!', if person is a string", function() {
-			var message = greeter.greet("Name");
-			message.should.equal("Hello, Name!");
+		it("should return 'Goodbye, cruel world!' if request is same as last and name is 'World'", function () {
+			var name = "world"; 
+			var locale = "en-US";
+			var isSame = true;
+			var message = greeter.getMessage(name, locale, isSame);
+			message.should.equal("Goodbye, cruel " + name + "!");
 		});
 
-		it("should return 'Hello, Individual!', if person has no name", function() {
-			var person = new Person();
-			var message = greeter.greet(person);
-			message.should.equal("Hello, Individual!");
-		});
 
-		it("should return 'Hello, Name!', if a name is given", function() {
-			var name = "Aaron";
-			var person = new Person(name);
-			var message = greeter.greet(person);
-			message.should.equal("Hello, " + name + "!");
-		});
 
-		describe("locale based greeting", function() {
-			it("should greet Australians with 'G'Day'", function() {
-				var name = "Mick";
-				var person = new Person(name);
+		describe("for Spanish locale", function() {
+			var locale = "es";
 				
-				var request = {	headers: [] };
-				request.headers['Accept-Language'] = 'en-AU; en; q=0.8; en-US; q=0.5';
-				var locale = request_helper.getLocale(request);
-				console.log(locale);
-
-				var message = greeter.greet(person, 'en-AU');
-				message.should.equal("G'Day, " + name + "!");
+			it("should return '¡Hola a todo el mundo!' if no name is given", function () {
+				var message = greeter.getMessage(undefined, locale);
+				message.should.equal("¡Hola a todo el mundo!");
 			});
 
-			it("should greet Americans with 'Hello'", function() {
-				var message = greeter.greet("John", 'en-US');
-				message.should.equal("Hello, John!");
+			it("should return '¡Hola a todo el mundo!' if name is null", function () {
+				var name;
+				var message = greeter.getMessage(name, locale);
+				message.should.equal("¡Hola a todo el mundo!");
 			});
 
-			it("should greet Mexicans with 'Hola'", function() {
-				var message = greeter.greet(null, 'es-MX');
-				message.should.equal("Hola, todo mundo!");
+			it("should return '¡Hola amigo!' if name is an empty string", function () {
+				var name = "";
+				var message = greeter.getMessage(name, locale, false); 
+				message.should.equal("¡Hola amigo!");
 			});
 
-
-			it("should greet Mexicans with 'Hola'", function() {
-				var message = greeter.greet(new Person(), 'es-MX');
-				message.should.equal("Hola, amigo!");
+			it("should return '¡Hola Nombre!' if name is given", function () {
+				var name = "Nombre";
+				var message = greeter.getMessage(name, locale); 
+				message.should.equal("¡Hola Nombre!");
 			});
 
-			it("should greet Mexicans with 'Hola'", function() {
-				var name = "Juan";
-				var message = greeter.greet(new Person(name), 'es-MX');
-				message.should.equal("Hola, " + name + "!");
+			it("should return '¡Hola Nombre!' if name is given and request is not the same as last", function () {
+				var name = "Nombre";
+				var message = greeter.getMessage(name, locale, false); 
+				message.should.equal("¡Hola " + name + "!");
 			});
-		});
+
+			it("should return '¡Adiós Nombre!' if name is given and request is same as last", function () {
+				var name = "Nombre";
+				var message = greeter.getMessage(name, locale, true); 
+				message.should.equal("¡Adiós " + name + "!");
+			});
+
+			it("should return '¡Adiós amigo!' if request is same as last and name is an empty string", function() {
+				var name = "";
+				var message = greeter.getMessage(name, locale, true);
+				message.should.equal("¡Adiós amigo!");
+			})
+
+			it("should return '¡Adiós a todo el mundo mal!' if request is same as last and name is an empty string", function() {
+				var name;
+				var message = greeter.getMessage(name, locale, true);
+				message.should.equal("¡Adiós a todo el mundo mal!");
+			})
+		})
+	
+
+		describe("for Australian locale", function() {
+			var locale = "en-AU";
+				
+			it("should return 'G'day, world!", function () {
+				var message = greeter.getMessage(undefined, locale);
+				message.should.equal("G'day, world!");
+			});
+
+			it("should return 'G'day mate!' if name is an empty string", function () {
+				var name = "";
+				var message = greeter.getMessage(name, locale, false); 
+				message.should.equal("G'day, mate!");
+			});
+
+			it("should return 'G'day Name' if name is given", function () {
+				var name = "Name";
+				var message = greeter.getMessage(name, locale); 
+				message.should.equal("G'day, " + name + "!");
+			});
+
+			it("should return 'Cheerio, Name!' if name is given and request is same as last", function () {
+				var name = "Name";
+				var message = greeter.getMessage(name, locale, true); 
+				message.should.equal("Cheerio, " + name + "!");
+			});
+
+			it("should return 'Cheerio, mate!' if request is same as last and name is an empty string", function() {
+				var name = "";
+				var message = greeter.getMessage(name, locale, true);
+				message.should.equal("Cheerio, mate!");
+			})
+
+			it("should return 'Cheerio, bloody world!' if request is same as last and name is an empty string", function() {
+				var name;
+				var message = greeter.getMessage(name, locale, true);
+				message.should.equal("Cheerio, bloody world!");
+			})
+		})
 	});
 });
