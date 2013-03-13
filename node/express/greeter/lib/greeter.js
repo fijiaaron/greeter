@@ -1,8 +1,11 @@
 // greeter.js
 
 var default_locale = "en-US";
-
 var localizer = require('./localizer');
+
+var isSet = require('./helpers').isSet;
+var capitalize = require('./helpers').capitalize;
+var isMorning = require('./helpers').isMorning;
 
 function getMessage(name, locale, isSameAsLastRequest) {
 	var message;
@@ -57,25 +60,6 @@ function getMessage(name, locale, isSameAsLastRequest) {
 	return message;
 }
 
-
-function isSet(arg) {
-	return arg !== undefined || arg != null;
-}
-
-
-function isMorning() {
-	var time = new Date();
-
-	if (time.getHours() < 12) {
-		return true;
-	}
-
-	return false;
-}
-
-var capitalize = function capitalize(string) {
-   return string.replace( /(^|\s)([a-z])/g , function(m,p1,p2){ return p1+p2.toUpperCase(); } );
-}
 
 var greeter = {
 	getMessage : getMessage
