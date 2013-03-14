@@ -1,6 +1,7 @@
 // request_helper.js
 
 var util = require('util');
+var _ = require('underscore');
 var S = require('string');
 var localizer = require('./localizer');
 
@@ -68,7 +69,6 @@ function getClientAddress(request) {
 
 
 function isSameClient(request1, request2) {
-	
 	if (! request1 || ! request2) {
 		return false;
 	}
@@ -78,11 +78,38 @@ function isSameClient(request1, request2) {
 }
 
 
+function getCookies(request) {
+	var cookies = [];
+
+	var cookie_header = request.headers['cookie'];
+
+	cookie_header.split(';').forEach(function(c) {
+		var cookie = S(c).trim();
+		cookies.push(cookie.split('='));
+	});
+
+	return cookies;
+}
+
+function getFavoriteColor(cookies) {
+	var color = "black";
+	
+	// if (!favorite_color) {
+	// 	favorite_color = "purple";
+	// }
+	color = cookies.get('favorite_color');
+
+	return color;
+}
+
+
 var request_helper = {
 	getName: getName,
 	getLocale: getLocale,
 	getClientAddress: getClientAddress,
-	isSameClient: isSameClient
+	isSameClient: isSameClient,
+	getCookies: getCookies,
+	getFavoriteColor: getFavoriteColor
 }
 
 exports = module.exports = (function() {

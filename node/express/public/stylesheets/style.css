@@ -10,6 +10,11 @@ h1 { font-size: 48pt; }
 h2 { font-size: 36pt; }
 h3 { font-size: 24pt; }
 
+a {
+  color: #00B7FF;
+  text-decoration: none;
+}
+
 input { font-size: 24pt;}
 select { font-size: 24pt;}
 button { font-size: 24pt;}
@@ -27,11 +32,12 @@ input[type="submit"]:hover {
 	background: #345;
 }
 
-
-a {
-  color: #00B7FF;
-  text-decoration: none;
+label {
+	font-size: 24pt;
 }
+
+hr { margin: 30px 0; border: 1px solid gray;}
+
 
 #header {
 	width: 100%;

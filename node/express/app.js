@@ -10,7 +10,8 @@ var express = require('express')
   , express = require('express')
   , consolidate = require('consolidate')
   , swig = require('swig')
-  , Cookies = require('cookies'); 
+  , MemoryStore = express.session.MemoryStore
+  , sessionStore = new MemoryStore(); 
 
 
 var app = express();
@@ -24,7 +25,11 @@ app.configure(function(){
   app.use(express.methodOverride());
   app.use(app.router);
   app.use(express.static(path.join(__dirname, 'public')));
-
+  app.use(express.cookieParser());
+  app.use(express.session({ 
+    store: sessionStore, 
+    secret: 'topsecret',
+    key: 'cookie.sid' }));
   app.set('views', __dirname + '/views');
   app.set('view options', { layout: false });
   app.set('view engine', 'html');
@@ -41,7 +46,7 @@ app.configure('development', function(){
 
 app.get('/', routes.index);
 app.get('/hello', routes.hello);
-// app.get('/cookies', routes.cookies);
+app.get('/cookies', routes.cookies);
 
 var server = http.createServer(app);
 
