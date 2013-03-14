@@ -83,11 +83,12 @@ function getCookies(request) {
 
 	var cookie_header = request.headers['cookie'];
 
-	cookie_header.split(';').forEach(function(c) {
-		var cookie = S(c).trim();
-		cookies.push(cookie.split('='));
-	});
-
+	if (cookie_header) {
+		cookie_header.split(';').forEach(function(c) {
+			var cookie = S(c).trim();
+			cookies.push(cookie.split('='));
+		});
+	}
 	return cookies;
 }
 
