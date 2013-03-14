@@ -14,7 +14,6 @@ var swig = require('swig');
 var MemoryStore = express.session.MemoryStore;
 var sessionStore = new MemoryStore(); 
 
-
 /**
  * Config
  */
@@ -83,9 +82,7 @@ app.get('/hello', routes.hello);
 app.get('/cookies', routes.cookies);
 
 // protected by basic auth
-app.get('/admin', auth, function(request, response) {
- response.send('Welcome, admin');
-});
+app.get('/admin', auth, routes.admin);
 
 
 /** 
@@ -117,6 +114,3 @@ var https_server = https.createServer(options, app);
 https_server.listen(app.get('https_port'), function() {
   console.log("HTTPS server listening on port " + app.get('https_port'));
 });
-
-
-

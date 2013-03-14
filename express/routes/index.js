@@ -51,3 +51,14 @@ exports.cookies = function(request, response) {
 	// console.log("cookies: " + util.inspect(cookie_header)c);
 	response.render('cookies', { title: 'Cookies', cookies: kookies });
 };
+
+exports.admin = function(request, response) {
+	// for use with a reverse proxy (e.g Apache)
+	//if (req.headers['x-forwarded-proto'] {
+	if (! request.connection.encrypted) {
+		var secure_url = request_helper.getSecureUrl(request);
+		response.redirect(secure_url);
+	}
+
+	response.render('admin');
+}

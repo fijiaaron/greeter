@@ -119,4 +119,15 @@ describe("[Request Helper]", function() {
 
 	});
 
+	describe("getSecureUrl", function() {
+		it("should return https://domain from http://domain", function() {
+			var request = {};
+			request.app = {};
+			request.app.settings = {};
+			request.app.settings.port = 8080;
+			request.app.settings.https_port = 8443;
+
+		});
+	});
+
 });

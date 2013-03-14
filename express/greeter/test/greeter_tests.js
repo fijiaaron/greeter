@@ -30,7 +30,7 @@ describe("Greeter", function() {
 			var name = null;
 			var locale = null;
 			var isSame = null;
-			var message = greeter.getMessage(name, locale, isSame);
+			var message = greeter.getMessage(name, locale);
 			message.should.equal("Hello, world!");
 		});
 
@@ -54,12 +54,12 @@ describe("Greeter", function() {
 			message.should.equal("Goodbye, " + name + "!");
 		});
 
-		it("should return 'Goodbye, cruel world!' if request is same as last and name is 'World'", function () {
+		it("should return 'Goodbye, World!' if request is same as last and name is 'world'", function () {
 			var name = "world"; 
 			var locale = "en-US";
 			var isSame = true;
 			var message = greeter.getMessage(name, locale, isSame);
-			message.should.equal("Goodbye, cruel " + name + "!");
+			message.should.equal("Goodbye, World!");
 		});
 
 

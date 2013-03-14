@@ -104,13 +104,34 @@ function getFavoriteColor(cookies) {
 }
 
 
+function getSecureUrl(request) {
+	var host = headers['host'];
+
+	var http_port = request.app.settings.port;
+	var https_port = request.app.settings.https_port;
+
+	// the simple way
+	host = host.replace(http_port, https_port);
+		
+
+	var colon = host.indexOf(':');
+	if (colon == -1) {
+		host = host + ":" + https_port;
+	}
+
+	var secure_url = "https://" + host + request.path;
+
+	return secure_url;
+}
+
 var request_helper = {
 	getName: getName,
 	getLocale: getLocale,
 	getClientAddress: getClientAddress,
 	isSameClient: isSameClient,
 	getCookies: getCookies,
-	getFavoriteColor: getFavoriteColor
+	getFavoriteColor: getFavoriteColor,
+	getSecureUrl: getSecureUrl
 }
 
 exports = module.exports = (function() {

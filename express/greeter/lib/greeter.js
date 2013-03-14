@@ -22,12 +22,13 @@ function getMessage(name, locale, isSameAsLastRequest) {
 
 	var salutation = dictionary.greeting;
 	
-	if (isSameAsLastRequest) {
-		salutation = dictionary.farewell;
-	}
 	if (isMorning()) {
 		salutation = dictionary.good_morning;
 	} 
+
+	else if (isSameAsLastRequest) {
+		salutation = dictionary.farewell;
+	}
 
 	if (! isSet(name)) {
 		subject = dictionary.group;

@@ -1,7 +1,7 @@
 // helpers.js
 
 function isSet(arg) {
-	return arg !== undefined || arg != null;
+	return arg !== undefined && arg !== null;
 }
 
 function isMorning() {
@@ -15,7 +15,9 @@ function isMorning() {
 }
 
 function capitalize(string) {
-   return string.replace( /(^|\s)([a-z])/g , function(m,p1,p2){ return p1+p2.toUpperCase(); } );
+	if (string == null) { return ; }
+
+	return string.replace( /(^|\s)([a-z])/g , function(m,p1,p2){ return p1+p2.toUpperCase(); } );
 }
 
 var helpers = {
