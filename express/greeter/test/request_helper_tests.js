@@ -120,13 +120,40 @@ describe("[Request Helper]", function() {
 	});
 
 	describe("getSecureUrl", function() {
-		it("should return https://domain from http://domain", function() {
+		it("should return https://domain:8443 from http://domain", function() {
+			// this doesn't do a good job of testing that the request url is modified
+			// need a way to inject a URL into the request
+
 			var request = {};
 			request.app = {};
 			request.app.settings = {};
 			request.app.settings.port = 8080;
 			request.app.settings.https_port = 8443;
+			request.headers = [];
+			request.headers['host'] = "domain";
+			request.path = '/';
 
+			var secureUrl = request_helper.getSecureUrl(request);
+
+			secureUrl.should.equal("https://domain:8443/");
+		});
+
+		it("should return https://domain:8443 from http://domain:8080", function() {
+			// this doesn't do a good job of testing that the request url is modified
+			// need a way to inject a URL into the request
+			
+			var request = {};
+			request.app = {};
+			request.app.settings = {};
+			request.app.settings.port = 8080;
+			request.app.settings.https_port = 8443;
+			request.headers = [];
+			request.headers['host'] = "domain";
+			request.path = '/';
+
+			var secureUrl = request_helper.getSecureUrl(request);
+
+			secureUrl.should.equal("https://domain:8443/");
 		});
 	});
 

@@ -105,7 +105,7 @@ function getFavoriteColor(cookies) {
 
 
 function getSecureUrl(request) {
-	var host = headers['host'];
+	var host = request.headers['host'];
 
 	var http_port = request.app.settings.port;
 	var https_port = request.app.settings.https_port;

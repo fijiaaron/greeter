@@ -57,7 +57,6 @@ function getMessage(name, locale, isSameAsLastRequest) {
 		message = punctuation_inverted + salutation + " " + subject + modifier + punctuation;
 	}
 
-
 	return message;
 }
 

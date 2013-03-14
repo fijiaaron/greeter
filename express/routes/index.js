@@ -58,7 +58,7 @@ exports.admin = function(request, response) {
 	if (! request.connection.encrypted) {
 		var secure_url = request_helper.getSecureUrl(request);
 		response.redirect(secure_url);
+	} else {
+		response.render('admin');
 	}
-
-	response.render('admin');
 }
