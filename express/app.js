@@ -43,13 +43,14 @@ app.configure(function(){
   app.use(express.logger('dev'));
   app.use(express.bodyParser());
   app.use(express.methodOverride());
-  app.use(app.router);
+  app.use(app.router);  
   app.use(express.static(path.join(__dirname, 'public')));
-  app.use(express.cookieParser());
-  app.use(express.session({ 
-    store: sessionStore, 
-    secret: 'topsecret',
-    key: 'cookie.sid' }));
+  // app.use(express.cookieParser());
+  // app.use(express.session({ 
+  //   store: sessionStore, 
+  //   secret: 'topsecret',
+  //   key: 'cookie.sid' }));
+
   app.set('views', __dirname + '/views');
   app.set('view options', { layout: false });
   app.set('view engine', 'html');
@@ -64,12 +65,27 @@ app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
+
+/** 
+ * Basic authentication 
+ */
+
+var auth = express.basicAuth(function(user, pass) {
+ return user === 'admin' && pass === 'secret';
+});
+
+
 /**
  * Configure routes 
  */
 app.get('/', routes.index);
 app.get('/hello', routes.hello);
 app.get('/cookies', routes.cookies);
+
+// protected by basic auth
+app.get('/admin', auth, function(request, response) {
+ response.send('Welcome, admin');
+});
 
 
 /** 
@@ -101,3 +117,6 @@ var https_server = https.createServer(options, app);
 https_server.listen(app.get('https_port'), function() {
   console.log("HTTPS server listening on port " + app.get('https_port'));
 });
+
+
+
