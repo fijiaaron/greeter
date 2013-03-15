@@ -26,7 +26,7 @@ function getMessage(name, locale, isSameAsLastRequest) {
 		salutation = dictionary.good_morning;
 	} 
 
-	else if (isSameAsLastRequest) {
+	if (isSameAsLastRequest) {
 		salutation = dictionary.farewell;
 	}
 
