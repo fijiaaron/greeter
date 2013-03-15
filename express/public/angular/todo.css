@@ -1,0 +1,35 @@
+html, body {
+	margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px;
+	padding: 10px;
+	font: 24pt "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+h1, h2, h3 { margin: 0 0 15px; padding: 0 0 5px; border-bottom: 2px solid gray;}
+h1 { font-size: 48pt; }
+h2 { font-size: 36pt; }
+h3 { font-size: 24pt; }
+
+
+input, select, option, button { font-size: 24pt;}
+
+input[type="submit"] { 
+	font-size: 24pt; 
+	background: #789;
+	color: white;
+	border:2px solid black;
+	-webkit-border-radius: 6px;
+}
+input[type="submit"]:hover { 
+	font-size: 24pt; 
+	color: white;
+	background: #345;
+}
+
+.unstyled {
+	list-style-type: none;
+}
+
+.done-true {
+  text-decoration: line-through;
+  color: grey;
+}

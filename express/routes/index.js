@@ -83,3 +83,4 @@ exports.admin = function(request, response) {
 	response.render('admin', { title: 'Admin', cookies: kookies, brand: brand, color: favorite_color });
 
 }
+
