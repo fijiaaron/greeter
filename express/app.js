@@ -79,6 +79,7 @@ var auth = express.basicAuth(function(user, pass) {
  */
 app.get('/', routes.index);
 app.get('/hello', routes.hello);
+app.get('/register', routes.register);
 app.get('/cookies', routes.cookies);
 
 // protected by basic auth

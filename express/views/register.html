@@ -1,0 +1,101 @@
+{% extends 'layout.html' %} 	
+
+{% block styles %}
+<style>
+	label { 
+		padding: 10px;
+		float: right;
+	}
+
+	input, select { 
+		width: 400px;
+	}
+
+	input[type=submit] {
+		width: 200px;
+		float: right;
+		margin: 5px;
+	}
+
+	select, option {
+		width: 200px;	
+	}
+
+</style>
+{% endblock %}
+
+
+
+{% block content %}
+
+<h1 style="color: {{color}}">{{title}}</h1>
+
+<form name="registration" action="doRegistration" method="post">
+
+	<table style="width: 600px">
+
+		<tr>
+		<td>
+			<label>Title:</label> 
+		</td>
+		<td>
+			<select name="title">
+				<option value="Mr.">Mr.</option>
+				<option value="Mrs.">Mrs.</option>
+				<option value="Miss">Miss</option>
+				<option value="Dr.">Doctor</option>
+				<option value="Prof.">Professor</option>
+				<option value="Col.">Colonel</option>
+				<option value="Duke">Duke</option>
+				<option value="Earl">Earl</option>
+			</select>
+		</td>
+		</tr>
+		
+		<tr>
+			<td>
+				<label>First name:</label>
+			</td>
+			<td>
+				<input name="first_name" placeholder="" size="20"/>
+			</td>
+		</tr>
+
+		<tr>
+			<td>
+				<label>Last name:</label>
+			</td>
+			<td>
+				<input name="last_name" placeholder="" size="20"/>
+			</td>
+		</tr>
+
+		<tr>
+			<td>
+				<label>Login:</label>
+			</td>
+			<td>
+				<input name="login" placeholder="" size="20"/>	
+			</td>
+		</tr>
+
+		<tr>
+			<td>
+				<label>Password:</label>
+			</td>
+			<td>
+				<input name="password" type="password" placeholder="" size="20"/>
+			</td>
+		</tr>
+
+		<tr>
+			<td>
+			</td>
+			<td>
+				<input type="submit" value="Register"/>
+			</td>
+		</tr>
+		
+	</table>
+</form>
+{% endblock %}

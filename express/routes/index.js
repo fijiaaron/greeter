@@ -9,7 +9,11 @@ var Cookies = require('cookies/lib/cookies.js');
 var last_request;
 
 exports.index = function(request, response) {
-  response.render('index', { title: 'Greeter' });
+	var cookies = new Cookies(request, response);
+	var brand = cookies.get('brand');
+	var favorite_color = request_helper.getFavoriteColor(cookies);
+
+	response.render('index', { title: 'Greeter', brand: brand });
 };
 
 exports.hello = function(request, response) {
@@ -32,24 +36,36 @@ exports.hello = function(request, response) {
 	console.log("message: " + message);
 
 	var cookies = new Cookies(request, response);
+	var brand = cookies.get('brand');
+
 	var favorite_color = request_helper.getFavoriteColor(cookies);
 	console.log("favorite_color: " + favorite_color);
 
+	
 	last_request = request;
 
-	response.render('hello', {name: name, greeting: message, color: favorite_color});
+	response.render('hello', {name: name, greeting: message, brand: brand, color: favorite_color});
 }
 
+exports.register = function(request, response) {
+	var cookies = new Cookies(request, response);
+	var brand = cookies.get('brand');
+	var favorite_color = request_helper.getFavoriteColor(cookies);
+
+	response.render('register', {title: "Registration", brand: brand, color: favorite_color});
+}
 
 exports.cookies = function(request, response) {
 	var cookies = new Cookies(request, response);
+	var brand = cookies.get('brand');
+	var favorite_color = request_helper.getFavoriteColor(cookies);
 
 	var kookies = request_helper.getCookies(request);
 
 	console.log(util.inspect(kookies));
 
 	// console.log("cookies: " + util.inspect(cookie_header)c);
-	response.render('cookies', { title: 'Cookies', cookies: kookies });
+	response.render('cookies', { title: 'Cookies', cookies: kookies, brand: brand, color: favorite_color });
 };
 
 exports.admin = function(request, response) {
@@ -58,7 +74,12 @@ exports.admin = function(request, response) {
 	if (! request.connection.encrypted) {
 		var secure_url = request_helper.getSecureUrl(request);
 		response.redirect(secure_url);
-	} else {
-		response.render('admin');
 	}
+
+	var cookies = new Cookies(request, response);
+	var brand = cookies.get('brand');
+	var favorite_color = request_helper.getFavoriteColor(cookies);
+
+	response.render('admin', { title: 'Admin', cookies: kookies, brand: brand, color: favorite_color });
+
 }
