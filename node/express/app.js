@@ -1,24 +1,44 @@
 
 /**
- * Module dependencies.
+ * Dependencies
  */
 
-var express = require('express')
-  , routes = require('./routes')
-  , http = require('http')
-  , path = require('path')
-  , express = require('express')
-  , consolidate = require('consolidate')
-  , swig = require('swig')
-  , MemoryStore = express.session.MemoryStore
-  , sessionStore = new MemoryStore(); 
+var express = require('express');
+var routes = require('./routes');
+var http = require('http');
+var path = require('path');
+var fs = require('fs');
+var consolidate = require('consolidate');
+var swig = require('swig');
 
+var MemoryStore = express.session.MemoryStore;
+var sessionStore = new MemoryStore(); 
+
+
+/**
+ * Config
+ */
+
+var http_port = '8080';
+var https_port = '8443';
+var private_key_file = 'cert/server.key';
+var certificate_file = 'cert/server.crt';
+
+
+/** 
+ * Create Express application 
+ */
 
 var app = express();
 
-app.configure(function(){
-  app.set('port', process.env.PORT || 3000);
 
+/** 
+ * Configure Express
+ */
+
+app.configure(function(){
+  app.set('port', process.env.PORT || http_port);
+  app.set('https_port', process.env.HTTPS_PORT || https_port);
   app.use(express.favicon());
   app.use(express.logger('dev'));
   app.use(express.bodyParser());
@@ -44,12 +64,40 @@ app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
+/**
+ * Configure routes 
+ */
 app.get('/', routes.index);
 app.get('/hello', routes.hello);
 app.get('/cookies', routes.cookies);
 
-var server = http.createServer(app);
 
-server.listen(app.get('port'), function(){
-  console.log("Express server listening on port " + app.get('port'));
+/** 
+ * Start HTTP server
+ */
+
+var http_server = http.createServer(app);
+
+http_server.listen(app.get('port'), function() {
+  console.log("HTTP server listening on port " + app.get('port'));
+});
+
+
+/** 
+ * Start HTTPS server
+ */
+var https = require('https');
+
+var privateKey = fs.readFileSync(private_key_file).toString();
+var certificate = fs.readFileSync(certificate_file).toString();
+
+var options = {
+  key : privateKey,
+  cert: certificate
+}
+
+var https_server = https.createServer(options, app);
+
+https_server.listen(app.get('https_port'), function() {
+  console.log("HTTPS server listening on port " + app.get('https_port'));
 });
