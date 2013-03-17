@@ -1,0 +1,21 @@
+{
+  "name": "application-name",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node app"
+  },
+  "dependencies": {
+    "express": "3.1.0",
+    "cookies": "~0.3.6",
+    "session": "~0.1.0",
+    "consolidate": "~0.8.0",
+    "swig": "~0.13.5",
+    "string": "~1.2.1"
+  },
+  "devDependencies": {
+    "mocha": "*",
+    "chai": "*",
+    "sinon": "*"
+  }
+}

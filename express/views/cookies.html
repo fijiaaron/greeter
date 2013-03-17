@@ -1,0 +1,53 @@
+{% extends 'layout.html' %} 	
+
+{% block scripts %}
+
+<script>
+	function setCookie(name, value, expiration) {
+		var cookie = name + "=" + value;
+		if (expiration) {
+			cookie = cookie + ";expires=" + expiration;
+		}
+
+		document.cookie = cookie;
+	}
+
+	function deleteCookie(name) {
+		var expiration = ";expires=Thu, 01 Jan 1970 00:00:01 GMT"
+		document.cookie = name + "=" + expiration
+	}
+</script>
+
+{% endblock %}
+
+{% block content %}
+
+
+<h1 style="color: {{color}}">{{title}}</h1>
+
+<br/>
+
+<form>
+	<label>Set Cookie:</label>
+	<input name="name" placeholder="name" size="10"/>
+	<input name="value" placeholder="value" size="10"/>
+	<input type="submit" value="save" onclick="setCookie(document.forms[0].name.value, document.forms[0].value.value)"/>
+</form>
+
+<hr/>
+
+<form>
+{% for cookie in cookies %}
+		<input type="submit" value="X" onclick="deleteCookie('{{cookie[0]}}')">
+	
+	<label>{{cookie[0]}} = {{cookie[1]}} </label> 
+	<br>
+{% endfor %}
+</form>
+
+<pre>
+	{{data}}
+</pre>
+
+{% endblock %}
+

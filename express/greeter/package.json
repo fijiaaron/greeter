@@ -1,0 +1,19 @@
+{
+  "name": "greeter",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node app"
+  },
+  "dependencies": {
+    "cookies": "~0.3.6",
+    "string": "~1.2.1",
+    "underscore": "~1.4.4"
+  },
+  "devDependencies": {
+    "mocha": "*",
+    "chai": "*",
+    "sinon": "*",
+    "express": "~3.0"
+  }
+}
